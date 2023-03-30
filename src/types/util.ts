@@ -1,1 +1,1 @@
-export type Procedure<T> = (t: T) => void;
+export type Action<T> = (t: T) => void;

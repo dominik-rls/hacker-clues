@@ -1,11 +1,11 @@
-export type HnPageJson = Readonly<Partial<{
+export type HnPageInfoJson = Readonly<Partial<{
     title: String,
     url: String,
     author: String,
 //    num_comments: number,
 //    /** creation date as unix timestamp in SECONDS */
 //    created_at_i: number,
-//    /** awarded by visitors */
+//    /** User ranking */
 //    points: number,
 //    story_text: String | null,
 //    _highlightedResult: Readonly<Partial<{
@@ -17,7 +17,7 @@ export type HnPageJson = Readonly<Partial<{
 }>>;
 
 export type HnSearchResultJson = Readonly<Partial<{
-    hits: HnPageJson[],
+    hits: HnPageInfoJson[],
     nbHits: number
     page: number,
     nbPages: number,
