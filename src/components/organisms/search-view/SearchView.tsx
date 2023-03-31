@@ -15,15 +15,17 @@ export default (): JSX.Element => {
     return (
         <>
             <header className="flex flex-row gap-4">
-                <h1 className="uppercase tracking-widest text-3xl font-thin">
-                  Hacker Clues
+                <h1 aria-label="Hacker Clues"
+                    className="uppercase tracking-widest text-3xl font-thin">
+                  Hacker Clue 
+                  <span aria-hidden className="text-[hotpink]">$&gt;</span>
                 </h1>
                 <SearchBar onSubmit={onSubmitWrapper(setSearchResult, setIsLoading)} />
             </header>
             <main>
                 { isLoading ? (<LoadIndicator />)
                 : isEmpty   ? (<Empty placeholder={placeholderImage} />)
-                : (<SearchResults />)
+                : (<SearchResults results={searchResult}/>)
                 } 
             </main>
         </>
@@ -39,16 +41,13 @@ const Empty = ({placeholder}: EmptyProps): JSX.Element =>
 type OnSubmitWrapper = (
     setSearchResult: React.Dispatch<SetStateAction<HnSearchResult|undefined>>,
     setIsLoading: React.Dispatch<SetStateAction<boolean>>
-) => (query: string) => Promise<HnSearchResult>;
+) => (query: string) => void;
 
-const onSubmitWrapper: OnSubmitWrapper = (setSearchResult, setIsLoading) => async query =>
-{
+const onSubmitWrapper: OnSubmitWrapper = (setSearchResult, setIsLoading) => async query => {
     setIsLoading(true);
     try {
         const result = await fetchSearchResults(query);
         setSearchResult(result);
-        setIsLoading(false);
-        return result;
     } catch (error) { 
         // I suppose tsc can't rule out the chance that the code throws, say...
         // fish instead of Errors?
@@ -57,5 +56,7 @@ const onSubmitWrapper: OnSubmitWrapper = (setSearchResult, setIsLoading) => asyn
         } else {
             throw new Error(`🤷 What's all this then?: ${error}`);
         }
+    } finally {
+        setIsLoading(false);
     }
 };

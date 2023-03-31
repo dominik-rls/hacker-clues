@@ -1,20 +1,54 @@
-import { HnPageInfo } from "../../../services/hn-api";
+import { HnPageLink, HnSearchResultEntry, HnStory } from "../../../services/hn-api";
 import { UserCircle } from "@phosphor-icons/react";
+import Collapsible from "react-collapsible";
 
-type PageInfoProps = {info: HnPageInfo};
+import Link from "../../atoms/Link";
 
-export default ({info}: PageInfoProps) => (
+type PageLinkProps = {info: HnPageLink};
+type StoryProps = {info: HnStory};
+type PageInfoProps = {info: HnSearchResultEntry};
+type AuthorProps = {author: string};
+
+
+// I added a few internal micro-components, is that good practice?
+
+const Author = ({author}: AuthorProps) => (
     <>
-        <p className="text-slate-100">
-            <a className="underline" href={info.url}>
-                {info.title}
-            </a>
-            (<UserCircle 
-                className="inline" 
-                color="rgb(241, 245, 249)" 
-                alt="by user" 
-                weight="thin" />
-            {info.author})
-        </p>
+        <UserCircle 
+            className="inline" 
+            color="rgb(241, 245, 249)" 
+            alt="by user" 
+            weight="thin" />
+        {author}
     </>
 );
+
+const PageLink = ({info}: PageLinkProps) => (
+    <>
+        <Link href={info.url}>
+            {info.title}
+        </Link>
+        <Author author={info.author}></Author>
+    </>
+);
+
+const Story = ({info}: StoryProps) => (
+    <Collapsible trigger={info.title ?? "Untitled"}>
+        <Author author={info.author}></Author>
+        <p>
+            {info.story_text}
+        </p>
+    </Collapsible>
+)
+
+export default ({info}: PageInfoProps): JSX.Element => {
+    if (info.url) {
+        const linkInfo = info as HnPageLink;
+        return (<PageLink info={linkInfo}></PageLink>);
+    } else if (info.story_text) {
+        const storyInfo = info as HnStory;
+        return (<Story info={storyInfo}></Story>)
+    } else {
+        throw new Error(`Bad argument, expected 'PageInfoProps'`)
+    }
+};

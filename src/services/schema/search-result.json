@@ -1,30 +1,99 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "additionalProperties": {},
+    "definitions": {
+        "HnPageLink": {
+            "allOf": [
+                {
+                    "additionalProperties": {},
+                    "properties": {
+                        "author": {
+                            "title": "author",
+                            "type": "string"
+                        },
+                        "title": {
+                            "title": "title",
+                            "type": [
+                                "null",
+                                "string"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "author",
+                        "title"
+                    ],
+                    "type": "object"
+                },
+                {
+                    "properties": {
+                        "url": {
+                            "title": "url",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "url"
+                    ],
+                    "type": "object"
+                }
+            ],
+            "title": "HnPageLink"
+        },
+        "HnSearchResultEntry": {
+            "anyOf": [
+                {
+                    "$ref": "#/definitions/HnPageLink"
+                },
+                {
+                    "$ref": "#/definitions/HnStory"
+                }
+            ],
+            "title": "HnSearchResultEntry"
+        },
+        "HnStory": {
+            "allOf": [
+                {
+                    "additionalProperties": {},
+                    "properties": {
+                        "author": {
+                            "title": "author",
+                            "type": "string"
+                        },
+                        "title": {
+                            "title": "title",
+                            "type": [
+                                "null",
+                                "string"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "author",
+                        "title"
+                    ],
+                    "type": "object"
+                },
+                {
+                    "properties": {
+                        "story_text": {
+                            "title": "story_text",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "story_text"
+                    ],
+                    "type": "object"
+                }
+            ],
+            "title": "HnStory"
+        }
+    },
     "properties": {
         "hits": {
             "items": {
-                "additionalProperties": {},
-                "properties": {
-                    "author": {
-                        "title": "author",
-                        "type": "string"
-                    },
-                    "title": {
-                        "title": "title",
-                        "type": "string"
-                    },
-                    "url": {
-                        "title": "url",
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "author",
-                    "title",
-                    "url"
-                ],
-                "type": "object"
+                "$ref": "#/definitions/HnSearchResultEntry"
             },
             "title": "hits",
             "type": "array"

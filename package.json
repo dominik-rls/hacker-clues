@@ -22,6 +22,7 @@
     "autoprefixer": "^10.4.14",
     "normalize.css": "^8.0.1",
     "postcss": "^8.4.21",
+    "react-collapsible": "^2.10.0",
     "react-feather": "^2.0.10",
     "react-ts-loaders": "^1.2.1",
     "tailwindcss": "^3.3.0",

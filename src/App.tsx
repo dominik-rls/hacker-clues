@@ -1,11 +1,7 @@
-import SearchBar from "./components/molecules/search-bar/SearchBar";
-import placeholderImage from "./assets/clues-placeholder.png";
-import { HnPageInfo } from "./services/hn-api";
-import PageInfo from "./components/molecules/page-info/PageInfo";
-import LoadIndicator from "./components/molecules/load-indicator/LoadIndicator";
+import { HnSearchResultEntry } from "./services/hn-api";
 import SearchView from "./components/organisms/search-view/SearchView";
 
-const PAGE_INFO_TEST: HnPageInfo = {
+const PAGE_INFO_TEST: HnSearchResultEntry = {
   "created_at": "2018-03-14T03:50:30.000Z",
   "title": "Stephen Hawking has died",
   "url": "http://www.bbc.com/news/uk-43396008",
