@@ -1,0 +1,3 @@
+#!/bin/sh
+npx typescript-json-schema --required --titles ./tsconfig.json HnSearchResult \
+   > src/services/schema/search-result.json

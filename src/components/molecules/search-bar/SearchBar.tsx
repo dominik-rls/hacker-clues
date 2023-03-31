@@ -4,18 +4,21 @@ import {
     MutableRefObject,
     FormEvent, 
 } from "react";
-import { Search, Search as SearchIcon } from 'react-feather';
+import { MagnifyingGlass as SearchIcon } from "@phosphor-icons/react";
 
 import { Action } from "../../../types/util";
 
-type SearchProps = {onSubmit: Action<String>};
+
+type SearchProps = {onSubmit: Action<string>};
 type InputRef = MutableRefObject<HTMLInputElement | null>;
 type OnSubmitWrapper = Action<FormEvent<HTMLFormElement>>;
 
+
 export default ({onSubmit}: SearchProps) => {
-    const [query, setQuery] = useState("");
+    const [query, setQuery] = useState(``);
     const inputRef: InputRef = useRef(null);
     const onSubmitWrapper: OnSubmitWrapper = e => {
+        e.preventDefault();
         if (inputRef.current) {
             const input = inputRef.current;
             onSubmit(input.value);
@@ -24,7 +27,7 @@ export default ({onSubmit}: SearchProps) => {
         }
     }
     return (
-        <form className="flex" onSubmit={onSubmitWrapper}>
+            <form className="flex" onSubmit={onSubmitWrapper}>
             <input 
                 type="search" 
                 placeholder="Search"
@@ -33,11 +36,11 @@ export default ({onSubmit}: SearchProps) => {
                 autoFocus={true}
                 onChange={e => setQuery(e.currentTarget.value)}
                 className="
-                    text-slate-100 bg-transparent border-slate-100 
+                    bg-transparent border-slate-100 
                     border-[1px] rounded-full px-2 py-1 pr-8 "
             />
             <button type="submit" aria-label="Search" className="-translate-x-6">
-                <SearchIcon />
+                <SearchIcon color="rgb(241, 245, 249)" alt="" weight="thin" />
             </button>
         </form>
     );
