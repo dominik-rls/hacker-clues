@@ -2,6 +2,7 @@ import Ajv, { JSONSchemaType } from 'ajv';
 
 import searchResultJson from './schema/search-result.json';
 
+
 export type HnSearchResultEntryBase = Readonly<{
     title: string | null, // Yes, title can be null...
     author: string,
@@ -16,6 +17,9 @@ export type HnStory = HnSearchResultEntryBase & Readonly<{
     story_text: string
 }>;
 
+/*
+ * Make sure to run `npm run build` when this type changes to update the schema.
+ */
 export type HnSearchResultEntry = HnPageLink | HnStory;
 
 //    num_comments: number,

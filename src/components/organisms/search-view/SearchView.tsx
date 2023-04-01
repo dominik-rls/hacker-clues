@@ -6,7 +6,6 @@ import SearchBar from "../../molecules/search-bar/SearchBar";
 import SearchResults from "../search-results/SearchResults";
 import placeholderImage from "../../../assets/clues-placeholder.png";
 
-
 export default (): JSX.Element => {
     const [searchResult, setSearchResult] = 
         useState<HnSearchResult|undefined>(undefined);
@@ -14,7 +13,7 @@ export default (): JSX.Element => {
     const isEmpty = !searchResult?.hits?.length;
     return (
         <>
-            <header className="flex flex-row gap-4">
+            <header className="flex flex-col sm:flex-row gap-4 my-4">
                 <h1 aria-label="Hacker Clues"
                     className="uppercase tracking-widest text-3xl font-thin">
                   Hacker Clue 
@@ -22,7 +21,7 @@ export default (): JSX.Element => {
                 </h1>
                 <SearchBar onSubmit={onSubmitWrapper(setSearchResult, setIsLoading)} />
             </header>
-            <main>
+            <main className="mx-2 sm:mx-4">
                 { isLoading ? (<LoadIndicator />)
                 : isEmpty   ? (<Empty placeholder={placeholderImage} />)
                 : (<SearchResults results={searchResult}/>)
@@ -35,7 +34,7 @@ export default (): JSX.Element => {
 
 type EmptyProps = { placeholder: string }
 const Empty = ({placeholder}: EmptyProps): JSX.Element => 
-    (<img alt="" className="opacity-10" src={placeholder} />);
+    (<img alt="" className="opacity-10 pointer-events-none" src={placeholder} />);
 
 
 type OnSubmitWrapper = (

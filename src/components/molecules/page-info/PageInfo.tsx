@@ -1,5 +1,5 @@
 import { HnPageLink, HnSearchResultEntry, HnStory } from "../../../services/hn-api";
-import { UserCircle } from "@phosphor-icons/react";
+import { ArrowSquareOut, UserCircle } from "@phosphor-icons/react";
 import Collapsible from "react-collapsible";
 
 import Link from "../../atoms/Link";
@@ -8,7 +8,6 @@ type PageLinkProps = {info: HnPageLink};
 type StoryProps = {info: HnStory};
 type PageInfoProps = {info: HnSearchResultEntry};
 type AuthorProps = {author: string};
-
 
 // I added a few internal micro-components, is that good practice?
 
@@ -26,9 +25,17 @@ const Author = ({author}: AuthorProps) => (
 const PageLink = ({info}: PageLinkProps) => (
     <>
         <Link href={info.url}>
-            {info.title}
-        </Link>
-        <Author author={info.author}></Author>
+            {info.title ?? "Untitled"}
+        </Link> 
+        <div className="flex flex-row gap-2 text-slate-300 text-sm">
+            <span>
+                {new URL(info.url).hostname.replace(/^www\./, "")}
+            </span>
+            <span>
+                <Author author={info.author}></Author>
+            </span>
+
+        </div>
     </>
 );
 
@@ -49,6 +56,6 @@ export default ({info}: PageInfoProps): JSX.Element => {
         const storyInfo = info as HnStory;
         return (<Story info={storyInfo}></Story>)
     } else {
-        throw new Error(`Bad argument, expected 'PageInfoProps'`)
+        throw new Error(`Bad argument, expected PageInfoProps`)
     }
 };
