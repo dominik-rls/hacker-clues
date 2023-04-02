@@ -1,5 +1,5 @@
 import { HnPageLink, HnSearchResultEntry, HnStory } from "../../../services/hn-api";
-import { ArrowSquareOut, UserCircle } from "@phosphor-icons/react";
+import { UserCircle } from "@phosphor-icons/react";
 import Collapsible from "react-collapsible";
 
 import Link from "../../atoms/Link";
@@ -22,6 +22,17 @@ const Author = ({author}: AuthorProps) => (
     </>
 );
 
+
+const MILLIS_PER_SECOND = 1000;
+type CreationTimeProps = {unixTimestampSeconds: number};
+const CreationTime = ({unixTimestampSeconds}: CreationTimeProps) => {
+    const d = new Date(unixTimestampSeconds * MILLIS_PER_SECOND);
+    return (
+        <span>{d.toLocaleDateString()}</span>
+    );
+}
+
+
 const PageLink = ({info}: PageLinkProps) => (
     <>
         <Link href={info.url}>
@@ -34,6 +45,7 @@ const PageLink = ({info}: PageLinkProps) => (
             <span>
                 <Author author={info.author}></Author>
             </span>
+            <CreationTime unixTimestampSeconds={info.created_at_i} />
 
         </div>
     </>
@@ -42,6 +54,7 @@ const PageLink = ({info}: PageLinkProps) => (
 const Story = ({info}: StoryProps) => (
     <Collapsible trigger={info.title ?? "Untitled"}>
         <Author author={info.author}></Author>
+        <CreationTime unixTimestampSeconds={info.created_at_i} />
         <p>
             {info.story_text}
         </p>

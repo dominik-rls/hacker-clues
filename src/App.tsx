@@ -1,5 +1,7 @@
 import { HnSearchResultEntry } from "./services/hn-api";
-import SearchView from "./components/organisms/search-view/SearchView";
+import SearchView from "./components/pages/search-view/SearchView";
+import { GithubLogo } from "@phosphor-icons/react";
+import Link from "./components/atoms/Link";
 
 const PAGE_INFO_TEST: HnSearchResultEntry = {
   "created_at": "2018-03-14T03:50:30.000Z",
@@ -45,6 +47,14 @@ function App() {
   return (
     <div className="outline focus:outline-yellow-300 min-h-screen flex flex-col justify-center items-center bg-slate-800 text-slate-100">
       <SearchView />
+      <footer>
+        <div className="opacity-50">
+          <Link target="_blank" href="https://github.com/drosehnal/hacker-clues">
+            <GithubLogo className="inline" size="1.2em" weight="regular" color="hotpink" alt="Github"/>
+            drosehnal/hacker-clues
+          </Link>
+        </div>
+      </footer>
     </div>
   );
 }

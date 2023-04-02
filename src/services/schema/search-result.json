@@ -11,6 +11,20 @@
                             "title": "author",
                             "type": "string"
                         },
+                        "created_at_i": {
+                            "description": "creation date as unix timestamp in SECONDS",
+                            "title": "created_at_i",
+                            "type": "number"
+                        },
+                        "num_comments": {
+                            "title": "num_comments",
+                            "type": "number"
+                        },
+                        "points": {
+                            "description": "User ranking",
+                            "title": "points",
+                            "type": "number"
+                        },
                         "title": {
                             "title": "title",
                             "type": [
@@ -21,6 +35,9 @@
                     },
                     "required": [
                         "author",
+                        "created_at_i",
+                        "num_comments",
+                        "points",
                         "title"
                     ],
                     "type": "object"
@@ -60,6 +77,20 @@
                             "title": "author",
                             "type": "string"
                         },
+                        "created_at_i": {
+                            "description": "creation date as unix timestamp in SECONDS",
+                            "title": "created_at_i",
+                            "type": "number"
+                        },
+                        "num_comments": {
+                            "title": "num_comments",
+                            "type": "number"
+                        },
+                        "points": {
+                            "description": "User ranking",
+                            "title": "points",
+                            "type": "number"
+                        },
                         "title": {
                             "title": "title",
                             "type": [
@@ -70,6 +101,9 @@
                     },
                     "required": [
                         "author",
+                        "created_at_i",
+                        "num_comments",
+                        "points",
                         "title"
                     ],
                     "type": "object"
@@ -98,12 +132,12 @@
             "title": "hits",
             "type": "array"
         },
-        "nbHits": {
-            "title": "nbHits",
+        "hitsPerPage": {
+            "title": "hitsPerPage",
             "type": "number"
         },
-        "nbPages": {
-            "title": "nbPages",
+        "nbHits": {
+            "title": "nbHits",
             "type": "number"
         },
         "page": {
@@ -117,8 +151,8 @@
     },
     "required": [
         "hits",
+        "hitsPerPage",
         "nbHits",
-        "nbPages",
         "page",
         "query"
     ],
