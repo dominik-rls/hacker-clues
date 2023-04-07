@@ -10,7 +10,7 @@ Live: https://drosehnal.github.io/hacker-clues/
 - Still have to deal with comments and user profiles although this is probably out of scope.
 - I'm not happy with the component structure, but it will do for now.
 
-### 23 Mar
+### 29 Mar
 - Project setup done
 - I'm assuming serious testing is out of scope
 - I'm not going to bother with jsdoc for now

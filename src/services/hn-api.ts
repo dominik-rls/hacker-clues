@@ -1,6 +1,6 @@
-import Ajv, { JSONSchemaType } from 'ajv';
+import Ajv from "ajv";
 
-import searchResultJson from './schema/search-result.json';
+import searchResultJson from "./schema/search-result.json";
 
 
 export type HnSearchResultEntryBase = Readonly<{
@@ -36,7 +36,7 @@ export type HnSearchResultEntry = HnPageLink | HnStory;
 //    _highlightedResult: Readonly<Partial<{
 //        title: {
 //            /** page title where the part matching the query is highlighted */
-//            value: String
+//        >    value: String
 //        }
 
 export type HnSearchResult = Readonly<{
@@ -54,15 +54,16 @@ const ajv = new Ajv();
 const validateHnSearchResult = ajv.compile(searchResultJson);
 
 export const fetchSearchResults = async (query: string, page: number) => {
-    const url = `${API_ENDPOINT}${encodeURIComponent(query)}&page=${page}`;
-    const response = await fetch(url);
-    const json = await response.json()
-    if (json && validateHnSearchResult(json)) {
-        return json as HnSearchResult;
-    } else {
-        if (json) {
-            console.error("Oops:", json, validateHnSearchResult.errors);
-        }
-        throw new Error(`Invalid data`);
+  const url = `${API_ENDPOINT}${encodeURIComponent(query)}&page=${page}`;
+  const response = await fetch(url);
+  const json = await response.json();
+  if (json && validateHnSearchResult(json)) {
+    return json as HnSearchResult;
+  } else {
+    if (json) {
+      // eslint-disable-next-line no-console
+      console.error("Oops:", json, validateHnSearchResult.errors);
     }
+    throw new Error(`Invalid data`);
+  }
 };
