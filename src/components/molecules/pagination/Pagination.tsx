@@ -1,7 +1,9 @@
 import { PropsWithChildren } from "react";
-import { Action } from "../../../types/util";
-import { range } from "../../../app/util";
-import Link from "../../atoms/Link";
+
+import { Action } from "@/app/types/util";
+import { range } from "@/app/util";
+import Link from "@/components/atoms/Link";
+
 
 type PaginationProps = PropsWithChildren<{
     pageCount: number,
@@ -17,12 +19,15 @@ type PaginationProps = PropsWithChildren<{
     onPageSelected: Action<number>,
 }>;
 
+
 type PaginationItemProps = {
     index: number,
     label?: string | number,
     noLink?: true,
     onClick?: Action<number>,
 };
+
+
 const PaginationItem = (paginationProps: PaginationProps) =>
   // eslint-disable-next-line react/display-name
   ({ label, index, noLink, onClick }: PaginationItemProps): JSX.Element => {

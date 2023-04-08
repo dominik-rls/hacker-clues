@@ -6,7 +6,7 @@ import {
 } from "react";
 import { MagnifyingGlass as SearchIcon } from "@phosphor-icons/react";
 
-import { Action } from "../../../types/util";
+import { Action } from "@/app/types/util";
 
 
 type SearchProps = {onSubmit: Action<string>};

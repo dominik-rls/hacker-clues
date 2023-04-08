@@ -1,17 +1,17 @@
-import { HnPageLink, HnSearchResultEntry, HnStory } from "../../../services/hn-api";
 import { UserCircle } from "@phosphor-icons/react";
 import Collapsible from "react-collapsible";
 
-import Link from "../../atoms/Link";
+import Link from "@/components/atoms/Link";
+import { HnPageLink, HnSearchResultEntry, HnStory } from "@/services/hn-api";
 
-type PageLinkProps = {info: HnPageLink};
-type StoryProps = {info: HnStory};
-type PageInfoProps = {info: HnSearchResultEntry};
-type AuthorProps = {author: string};
+type PageLinkProps = { info: HnPageLink };
+type StoryProps = { info: HnStory };
+type PageInfoProps = { info: HnSearchResultEntry };
+type AuthorProps = { author: string };
 
 // I added a few internal micro-components, is that good practice?
 
-const Author = ({author}: AuthorProps) => (
+const Author = ({ author }: AuthorProps) => (
   <>
     <UserCircle
       className="inline"
@@ -24,8 +24,8 @@ const Author = ({author}: AuthorProps) => (
 
 
 const MILLIS_PER_SECOND = 1000;
-type CreationTimeProps = {unixTimestampSeconds: number};
-const CreationTime = ({unixTimestampSeconds}: CreationTimeProps) => {
+type CreationTimeProps = { unixTimestampSeconds: number };
+const CreationTime = ({ unixTimestampSeconds }: CreationTimeProps) => {
   const d = new Date(unixTimestampSeconds * MILLIS_PER_SECOND);
   return (
     <span>{d.toLocaleDateString()}</span>
@@ -33,7 +33,7 @@ const CreationTime = ({unixTimestampSeconds}: CreationTimeProps) => {
 };
 
 
-const PageLink = ({info}: PageLinkProps) => (
+const PageLink = ({ info }: PageLinkProps) => (
   <>
     <Link href={info.url}>
       {info.title ?? "Untitled"}
@@ -51,7 +51,7 @@ const PageLink = ({info}: PageLinkProps) => (
   </>
 );
 
-const Story = ({info}: StoryProps) => (
+const Story = ({ info }: StoryProps) => (
   <Collapsible trigger={info.title ?? "Untitled"}>
     <Author author={info.author}></Author>
     <CreationTime unixTimestampSeconds={info.created_at_i} />
@@ -61,7 +61,7 @@ const Story = ({info}: StoryProps) => (
   </Collapsible>
 );
 
-const PageInfo = ({info}: PageInfoProps): JSX.Element => {
+const PageInfo = ({ info }: PageInfoProps): JSX.Element => {
   if (info.url) {
     const linkInfo = info as HnPageLink;
     return (<PageLink info={linkInfo}></PageLink>);

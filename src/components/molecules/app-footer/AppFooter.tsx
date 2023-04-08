@@ -1,5 +1,5 @@
 import { GithubLogo } from "@phosphor-icons/react";
-import Link from "../../atoms/Link";
+import Link from "@/components/atoms/Link";
 
 const AppFooter = () =>
   <footer className="my-8">

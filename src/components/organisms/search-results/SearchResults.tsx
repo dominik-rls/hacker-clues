@@ -1,5 +1,5 @@
 import { HnSearchResult } from "../../../services/hn-api";
-import PageInfo from "../../molecules/page-info/PageInfo";
+import PageInfo from "@/components/molecules/page-info/PageInfo";
 
 type SearchResultsProps = {
     results: HnSearchResult

@@ -1,5 +1,5 @@
-import SearchView from "../components/pages/search-view/SearchView";
-import PageFooter from "../components/molecules/app-footer/AppFooter";
+import SearchView from "@/components/pages/search-view/SearchView";
+import PageFooter from "@/components/molecules/app-footer/AppFooter";
 
 function App() {
   return (

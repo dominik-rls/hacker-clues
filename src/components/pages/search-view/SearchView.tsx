@@ -1,21 +1,21 @@
 import { SetStateAction, useState } from "react";
 
-import { fetchSearchResults, HnSearchResult } from "../../../services/hn-api";
-import LoadIndicator from "../../molecules/load-indicator/LoadIndicator";
-import SearchBar from "../../molecules/search-bar/SearchBar";
-import SearchResults from "../../organisms/search-results/SearchResults";
-import placeholderImage from "../../../assets/clues-placeholder.png";
-import Pagination from "../../molecules/pagination/Pagination";
+import { fetchSearchResults, HnSearchResult } from "@/services/hn-api";
+import LoadIndicator from "@/components/molecules/load-indicator/LoadIndicator";
+import SearchBar from "@/components/molecules/search-bar/SearchBar";
+import SearchResults from "@/components/organisms/search-results/SearchResults";
+import Pagination from "@/components/molecules/pagination/Pagination";
+import placeholderImage from "@/assets/clues-placeholder.png";
 
 
 type EmptyProps = { placeholder: string }
-const Empty = ({placeholder}: EmptyProps): JSX.Element =>
+const Empty = ({ placeholder }: EmptyProps): JSX.Element =>
   (<img alt="" className="opacity-10 pointer-events-none max-h-[70vh]" src={placeholder} />);
 
 
 type SubmitHandler = (
-    setSearchResult: React.Dispatch<SetStateAction<HnSearchResult|undefined>>,
-    setIsLoading: React.Dispatch<SetStateAction<boolean>>
+  setSearchResult: React.Dispatch<SetStateAction<HnSearchResult | undefined>>,
+  setIsLoading: React.Dispatch<SetStateAction<boolean>>
 ) => (query: string, page?: number) => void;
 const submitHandler: SubmitHandler = (setSearchResult, setIsLoading) => async (query, page) => {
   setIsLoading(true);
@@ -36,7 +36,7 @@ const submitHandler: SubmitHandler = (setSearchResult, setIsLoading) => async (q
 
 const SearchView = (): JSX.Element => {
   const [searchResult, setSearchResult] =
-        useState<HnSearchResult|undefined>(undefined);
+    useState<HnSearchResult | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(false);
   const isEmpty = !searchResult?.hits?.length;
   const submit = submitHandler(setSearchResult, setIsLoading);
@@ -45,15 +45,15 @@ const SearchView = (): JSX.Element => {
       <header className="flex flex-col sm:flex-row gap-4 my-4">
         <h1 aria-label="Hacker Clues"
           className="uppercase tracking-widest text-3xl font-thin">
-                  Hacker Clue
+          Hacker Clue
           <span aria-hidden className="text-[hotpink]">$&gt;</span>
         </h1>
         <SearchBar onSubmit={submit} />
       </header>
       <main className="mx-2 sm:mx-4">
-        { isLoading ? <LoadIndicator />
+        {isLoading ? <LoadIndicator />
           : isEmpty ? <Empty placeholder={placeholderImage} />
-            : <SearchResults results={searchResult}/>
+            : <SearchResults results={searchResult} />
         }
       </main>
       {!(isLoading || isEmpty)
