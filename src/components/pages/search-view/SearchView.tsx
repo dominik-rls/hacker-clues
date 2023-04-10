@@ -40,6 +40,9 @@ const SearchView = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState(false);
   const isEmpty = !searchResult?.hits?.length;
   const submit = submitHandler(setSearchResult, setIsLoading);
+  const hitCount = searchResult?.nbHits.toLocaleString(undefined, { style: "decimal" });
+  const pageCount = searchResult ? Math.min(searchResult.nbPages,
+    Math.floor(searchResult.nbHits / searchResult.hitsPerPage)) : 0;
   return (
     <>
       <header className="flex flex-col sm:flex-row gap-4 my-4">
@@ -55,17 +58,20 @@ const SearchView = (): JSX.Element => {
           : isEmpty ? <Empty placeholder={placeholderImage} />
             : <SearchResults results={searchResult} />
         }
+        {!(isLoading || isEmpty)
+          ? <footer className="mt-4">
+            <div className="text-center">
+              Found {hitCount ?? ""} results.
+            </div>
+            <Pagination
+              uuid={searchResult.query}
+              neighbourCount={2}
+              pageCount={pageCount}
+              currentPage={searchResult.page}
+              onPageSelected={(n) => submit(searchResult.query, n)} />
+          </footer>
+          : null}
       </main>
-      {!(isLoading || isEmpty)
-        ? <footer>
-          <div>Found {searchResult.nbHits} results.</div>
-          <Pagination
-            neighbourCount={2}
-            pageCount={Math.floor(searchResult.nbHits / searchResult.hitsPerPage)}
-            currentPage={searchResult.page}
-            onPageSelected={(n) => submit(searchResult.query, n)} />
-        </footer>
-        : null}
     </>
   );
 };

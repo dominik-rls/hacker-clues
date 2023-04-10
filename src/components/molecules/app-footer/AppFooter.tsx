@@ -2,7 +2,7 @@ import { GithubLogo } from "@phosphor-icons/react";
 import Link from "@/components/atoms/Link";
 
 const AppFooter = () =>
-  <footer className="my-8">
+  <footer className="mt-8 mb-2">
     <div className="flex justify-center">
       <Link target="_blank" href="https://github.com/drosehnal/hacker-clues"
         className="text-lg rounded-full py-2 px-8 opacity-75

@@ -8,3 +8,20 @@ export const range = (min: number, max: number): number[] => {
   }
   return result;
 };
+
+export const truncate = (text: string, maxLength: number): string => {
+  const ellipsis = "…";
+  if (text.length <= maxLength) return text;
+  const result = [];
+  let len = 0;
+  const words = text.split(" ");
+  for (const word of words) {
+    if (word.length + len < maxLength) {
+      result.push(word);
+      len += word.length;
+    } else {
+      return `${result.join(" ")}${ellipsis}`;
+    }
+  }
+  throw new Error("This part shouldn't be reached.");
+};

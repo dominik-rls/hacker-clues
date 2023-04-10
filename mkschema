@@ -1,3 +1,5 @@
 #!/bin/sh
 npx typescript-json-schema --required --titles ./tsconfig.json HnSearchResult \
    > src/services/schema/search-result.json
+npx typescript-json-schema --required --titles ./tsconfig.json HnPostBase \
+   > src/services/schema/post-base.json

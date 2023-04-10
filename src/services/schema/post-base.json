@@ -1,0 +1,40 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": {},
+    "properties": {
+        "author": {
+            "title": "author",
+            "type": "string"
+        },
+        "created_at": {
+            "description": "creation date",
+            "title": "created_at",
+            "type": "string"
+        },
+        "num_comments": {
+            "title": "num_comments",
+            "type": "number"
+        },
+        "points": {
+            "description": "User ranking",
+            "title": "points",
+            "type": "number"
+        },
+        "title": {
+            "title": "title",
+            "type": [
+                "null",
+                "string"
+            ]
+        }
+    },
+    "required": [
+        "author",
+        "created_at",
+        "num_comments",
+        "points",
+        "title"
+    ],
+    "type": "object"
+}
+
