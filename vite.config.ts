@@ -6,7 +6,7 @@ import * as path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "hacker-clues",
+  base: "/hacker-clues",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
