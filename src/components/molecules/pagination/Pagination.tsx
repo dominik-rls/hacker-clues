@@ -34,8 +34,7 @@ const PaginationItem = (paginationProps: PaginationProps) =>
   ({ label, index, noLink, onClick }: PaginationItemProps): JSX.Element => {
     const style = "px-4 py-2";
     const linkStyle = `${style} hover:no-underline hover:rounded-full
-      hover:from-pink-600 hover:to-blue-950
-      bg-gradient-to-br hover:text-white">
+      hover:from-pink-600 hover:to-blue-950 bg-gradient-to-br hover:text-white
       hover:text-white text-[hotpink]`;
     const _label =
       label === "Left" ? <CaretLeft weight="thin" className="align-middle" />
@@ -70,15 +69,13 @@ const Pagination = (props: PaginationProps) => {
 
   return (
     <nav className="flex justify-center items-center">
-      {current > first ? <MyItem index={current - 1}
-        label="Left" /> : null}
+      {current > first ? <MyItem index={current - 1} label="Left" /> : null}
       {showFirst ? <MyItem index={first} /> : null}
       {showFirstSeparator ? <Separator /> : null}
       {neighbours.map((i) => <MyItem index={i} key={i} />)}
       {showLastSeparator ? <Separator /> : null}
       {showLast ? <MyItem index={last} /> : null}
-      {current < last ? <MyItem index={current + 1}
-        label="Right" /> : null}
+      {current < last ? <MyItem index={current + 1} label="Right" /> : null}
     </nav>
   );
 };

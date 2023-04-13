@@ -25,3 +25,17 @@ export const truncate = (text: string, maxLength: number): string => {
   }
   throw new Error("This part shouldn't be reached.");
 };
+
+export const stripHtmlTags = (text: string): string =>
+  text.replace(/<\/?[^>]+(>|$)/g, "");
+
+
+export const unescapeHtmlChars = (html: string): string => {
+  const e = document.createElement("div");
+  e.innerHTML = html;
+  return e.textContent ?? "";
+};
+
+type Debug = { debug: boolean | undefined };
+export const isDebug = () => import.meta.env.DEV
+  || !!(<Debug><unknown>window).debug;

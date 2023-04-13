@@ -1,6 +1,7 @@
 import Ajv from "ajv";
 
 import searchResultJson from "./schema/search-result.json";
+import { isDebug } from "@/app/util";
 
 /*
  * Make sure to run `npm run build` when this type changes to update the schema.
@@ -33,7 +34,7 @@ export const fetchSearchResults = async (query: string, page: number) => {
   if (json && validateHnSearchResult(json)) {
     return json as HnSearchResult;
   } else {
-    if (json && import.meta.env.DEV) {
+    if (json && isDebug()) {
       // eslint-disable-next-line no-console
       console.error(validateHnSearchResult.errors);
     }

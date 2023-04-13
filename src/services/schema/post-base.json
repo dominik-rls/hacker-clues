@@ -13,12 +13,18 @@
         },
         "num_comments": {
             "title": "num_comments",
-            "type": "number"
+            "type": [
+                "null",
+                "number"
+            ]
         },
         "points": {
             "description": "User ranking",
             "title": "points",
-            "type": "number"
+            "type": [
+                "null",
+                "number"
+            ]
         },
         "title": {
             "title": "title",
