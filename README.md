@@ -4,17 +4,21 @@ Live: https://drosehnal.github.io/hacker-clues/
 
 ## To do
 - [ ] Add modal overlays for comments and user info
-- [ ] Use dayjs to show relative dates
 - [ ] Search results should persist
 - [ ] Make use of url search params
 - [ ] Have an option/param to show frontpage posts
 - [ ] Give the user feedback when something went wrong or there are no results.
 - [ ] Support alternative search modes
+- [x] Use dayjs to show relative dates
 - [x] Only the hovered over pagination item should be bold, disable underlining
 - [x] Handle all kinds of search results (poll, story, etc.)
 - [x] Troubleshoot pagination problems
 
 ## Log
+### 13 Apr
+- Comments appearing in the search result are now properly handled
+- If there are more unhandled API quirks they seem to be somewhat rare
+
 ### 10 Apr
 - Works like a charm
 - I refactored search result types and rendering to be more robust and flexible.
@@ -38,12 +42,12 @@ Live: https://drosehnal.github.io/hacker-clues/
 
 
 ## Requirements
-- [ ] I need ui consuming http://hn.algolia.com/api/v1/search?query= and value of the query to come from a textbox
+- [x] I need ui consuming http://hn.algolia.com/api/v1/search?query= and value of the query to come from a textbox
 - [x] make a react project consuming this api , using typescript
 - [x] with pagination 
 - [x] use TailwindCSS ( it would be helpful if you learn this as we are using it in the project )
 - you need to commit everything to github
 - [x] i need an invite
-- [ ] make everything live on github
+- [x] make everything live on github
     - ghpages should do nicely
     - S mentioned render.com, but I can't use a free account
