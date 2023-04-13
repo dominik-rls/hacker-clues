@@ -26,7 +26,7 @@ const PostInfo = ({ unverifiedPost }: PostInfoProps) => {
       <PostTitle title={post.title} url={post.url} />
       {post.comment ? <PostComment comment_text={post.comment} /> : null}
       <div className="flex flex-row gap-1 sm:gap-4">
-        {post.url ? <Domain url={post.url} /> : null}
+        {window.innerWidth >= 600 && post.url ? <Domain url={post.url} /> : null}
         <PostDate created_at={post.created_at} />
         <Author author={post.author} />
         {post.points ? <PostPoints points={post.points} /> : null}

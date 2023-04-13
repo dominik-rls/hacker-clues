@@ -64,11 +64,12 @@ const SearchView = (): JSX.Element => {
               Found {hitCount ?? ""} results.
             </div>
             <Pagination
-              uuid={searchResult.query}
+              uniqueIdentifier={searchResult.query}
               neighbourCount={2}
               pageCount={pageCount}
               currentPage={searchResult.page}
-              onPageSelected={(n) => submit(searchResult.query, n)} />
+              onPageSelected={(n) => submit(searchResult.query, n)}
+              mobileOptimized={window.innerWidth < 600}/>
           </footer>
           : null}
       </main>

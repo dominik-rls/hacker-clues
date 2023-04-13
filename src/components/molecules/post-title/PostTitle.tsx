@@ -7,7 +7,7 @@ export type PostTitleProps = {
 
 const PostTitle = ({ title, url }: PostTitleProps) =>
   <Link href={url}>
-    <h2 className="text-xl">{title}</h2>
+    <h2 className="sm:text-xl">{title}</h2>
   </Link>;
 
 export default PostTitle;

@@ -7,7 +7,7 @@ import { CaretLeft, CaretRight } from "@phosphor-icons/react";
 
 
 type PaginationProps = PropsWithChildren<{
-  uuid: string,
+  uniqueIdentifier: string,
   pageCount: number,
   currentPage: number,
   /**
@@ -19,7 +19,24 @@ type PaginationProps = PropsWithChildren<{
    * indicates the newly selected page.
    */
   onPageSelected: Action<number>,
+  mobileOptimized: boolean,
 }>;
+
+type CaretProps = {
+  kind: "Left" | "Right",
+  labelled?: boolean
+};
+
+const Caret = ({ kind, labelled }: CaretProps) =>
+  kind === "Left"
+    ? <>
+      <CaretLeft weight="thin" className="align-sub inline" />
+      {labelled ? <span>Previous</span> : null}
+    </>
+    : <>
+      {labelled ? <span>Next</span> : null}
+      <CaretRight weight="thin" className="align-sub inline" />
+    </>;
 
 
 type PaginationItemProps = PropsWithChildren & Readonly<{
@@ -29,6 +46,7 @@ type PaginationItemProps = PropsWithChildren & Readonly<{
   onClick?: Action<number>,
 }>;
 
+
 const PaginationItem = (paginationProps: PaginationProps) =>
   // eslint-disable-next-line react/display-name
   ({ label, index, noLink, onClick }: PaginationItemProps): JSX.Element => {
@@ -36,15 +54,14 @@ const PaginationItem = (paginationProps: PaginationProps) =>
     const linkStyle = `${style} hover:no-underline hover:rounded-full
       hover:from-pink-600 hover:to-blue-950 bg-gradient-to-br hover:text-white
       hover:text-white text-[hotpink]`;
-    const _label =
-      label === "Left" ? <CaretLeft weight="thin" className="align-middle" />
-        : label === "Right" ? <CaretRight weight="thin" className="align-middle" />
-          : label ?? index + 1;
+    const _label = label
+      ? <Caret kind={label} labelled={paginationProps.mobileOptimized} />
+      : index + 1;
     const clickHandler = () => onClick ? onClick(index) : paginationProps.onPageSelected(index);
     const isLink = !noLink && index != paginationProps.currentPage;
 
-    return isLink?
-      <Link className={linkStyle} href={`#${paginationProps.uuid}-${index}`}
+    return isLink ?
+      <Link className={linkStyle} href={`#${paginationProps.uniqueIdentifier}-${index}`}
         onClick={clickHandler}>{_label}</Link>
       : <span className={style}>{_label}</span>;
   };
@@ -66,15 +83,16 @@ const Pagination = (props: PaginationProps) => {
   const showLast = currentToLast > props.neighbourCount;
   const showFirstSeparator = currentToFirst > props.neighbourCount + 1;
   const showLastSeparator = currentToLast > props.neighbourCount + 1;
+  const mo = props.mobileOptimized;
 
   return (
     <nav className="flex justify-center items-center">
       {current > first ? <MyItem index={current - 1} label="Left" /> : null}
-      {showFirst ? <MyItem index={first} /> : null}
-      {showFirstSeparator ? <Separator /> : null}
-      {neighbours.map((i) => <MyItem index={i} key={i} />)}
-      {showLastSeparator ? <Separator /> : null}
-      {showLast ? <MyItem index={last} /> : null}
+      {!mo && showFirst ? <MyItem index={first} /> : null}
+      {!mo && showFirstSeparator ? <Separator /> : null}
+      {!mo && neighbours.map((i) => <MyItem index={i} key={i} />)}
+      {!mo && showLastSeparator ? <Separator /> : null}
+      {!mo && showLast ? <MyItem index={last} /> : null}
       {current < last ? <MyItem index={current + 1} label="Right" /> : null}
     </nav>
   );
