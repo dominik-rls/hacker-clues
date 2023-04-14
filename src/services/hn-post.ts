@@ -1,4 +1,4 @@
-import Ajv from "ajv";
+import Ajv, { stringify } from "ajv";
 
 import postBaseJson from "./schema/post-base.json";
 import { Either } from "@/app/types/util";
@@ -63,33 +63,28 @@ const ajv = new Ajv();
 const validatePostBase = ajv.compile(postBaseJson);
 
 
-export const determinePostType = (base: HnPostBase): HnPostType | undefined =>
-  typeof base?.url === "string" && base.url ? "link"
-    : typeof (base?.story_text || base?.title) === "string" ? "story"
-      : typeof base?.comment_text === "string" ? "comment"
-        : undefined;
-
-
 export const tryNormalizePost = (maybePost: object): Either<HnNormalizedPost, unknown> => {
   const ok = validatePostBase(maybePost);
-  const type = determinePostType(maybePost as HnPostBase);
-  if (ok && type) {
+  if (ok) {
     const base = maybePost as HnPostBase;
-    const value: HnNormalizedPost = {
-      ...base,
-      type,
-      title: base.title
-        || type === "comment" && (<HnCommentPost>base).story_title
-        || type === "story" && (<HnStoryPost>base).story_text
-        || "Untitled",
-      url: type === "link" && (<HnLinkPost>base).url
-        || type === "comment" && (<HnCommentPost>base).story_url
-        || undefined,
-      comment: type === "comment"? (<HnCommentPost>base).comment_text : undefined
-    };
-    return {value, error: false};
+    const title = base?.title 
+      || base?.story_title as string | null
+      || base?.story_text as string | null
+      || "Untitled";
+    const url = base?.url as string | null
+      || base?.story_url as string | null
+      || undefined;
+    const comment = base?.comment_text as string | null 
+      || undefined;
+    const type: HnPostType | undefined
+      = url ? "link"
+      : comment ? "comment"
+      : title ? "story"
+      : undefined;
+    return (type
+      ? {value: {...base, title, url, comment, type}, error: false}
+      : {value: undefined, error: "Unknown type"});
   } else {
-    const error = validatePostBase.errors ?? (!type && "Unknown type");
-    return {value: undefined, error};
+    return {value: undefined, error: validatePostBase.errors};
   }
 };
