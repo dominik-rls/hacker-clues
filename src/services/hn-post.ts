@@ -65,7 +65,7 @@ const validatePostBase = ajv.compile(postBaseJson);
 
 export const determinePostType = (base: HnPostBase): HnPostType | undefined =>
   typeof base?.url === "string" && base.url ? "link"
-    : typeof base?.story_text === "string" ? "story"
+    : typeof (base?.story_text || base?.title) === "string" ? "story"
       : typeof base?.comment_text === "string" ? "comment"
         : undefined;
 
@@ -89,6 +89,7 @@ export const tryNormalizePost = (maybePost: object): Either<HnNormalizedPost, un
     };
     return {value, error: false};
   } else {
-    return {value: undefined, error: validatePostBase.errors};
+    const error = validatePostBase.errors ?? (!type && "Unknown type");
+    return {value: undefined, error};
   }
 };

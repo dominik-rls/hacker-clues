@@ -1,4 +1,4 @@
-import { HnNormalizedPost, tryNormalizePost } from "@/services/hn-post";
+import { tryNormalizePost } from "@/services/hn-post";
 
 import Domain from "@/components/atoms/Domain";
 import Author from "@/components/molecules/author/Author";
@@ -13,7 +13,7 @@ import { isDebug } from "@/app/util";
 
 export type PostInfoProps = { unverifiedPost: object };
 
-const DumpPost = ({ post }: { post: HnNormalizedPost }) =>
+const DumpPost = ({ post }: { post: unknown }) =>
   // eslint-disable-next-line no-console
   <button onClick={() => console.log(post)} title="Write JOSN to console">
     <BracketsCurly></BracketsCurly>
@@ -40,7 +40,10 @@ const PostInfo = ({ unverifiedPost }: PostInfoProps) => {
     if (isDebug()) {
       // eslint-disable-next-line no-console
       console.error(`Unable to normalize:`, unverifiedPost, error);
-      return <section>{JSON.stringify(unverifiedPost)}</section>;
+      return <section>
+        <p>{JSON.stringify(unverifiedPost)}</p>
+        <DumpPost post={unverifiedPost} />
+      </section>;
     } else {
       return null;
     }
